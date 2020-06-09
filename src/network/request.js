@@ -7,14 +7,12 @@ export function request(config) {
   });
   // 2.axios请求拦截器
   instance.interceptors.request.use(config => {
-    console.log(config);
     return config
   }, err => {
     console.log(err);
   });
   //3. 响应拦截
   instance.interceptors.response.use(result => {
-    console.log(result);
     return result.data
   }, err => {
     console.log(err);

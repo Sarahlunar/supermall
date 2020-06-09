@@ -5,7 +5,7 @@ module.exports = {
       // 默认有'@': 'src'
         'assets': '@/assets',
         'components': '@/components',
-        'common': 'components/common',
+        'common': '@/common',
         'network': '@/network',
         'views': '@/views'
       }

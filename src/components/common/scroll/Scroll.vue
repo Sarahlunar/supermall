@@ -21,7 +21,11 @@
         type: Number,
         default: 0
       },
-      pullUpLoad: false
+      pullUpLoad: {
+        type: Boolean,
+        default: false
+      }
+
     },
     mounted() {
       //创建BScroll对象
@@ -37,16 +41,26 @@
         this.$emit("scroll", position)
       })
 
-      // 监听上拉加载
-      this.scroll.on('pullingUp', () => {
-        this.$emit("pullingUp")
-      })
+      // 监听滚动到底部
+      if(this.pullUpLoad) {
+        this.scroll.on("pullingUp", () => {
+          this.$emit("pullingUp")
+        })
+      }
+
     },
     methods: {
       scrollToTop(x, y, time){
-        this.scroll.scrollTo(x, y, time)
+        // 先判断有this.scroll再去操作
+        this.scroll && this.scroll.scrollTo(x, y, time)
       },
-      finishPU(){
+
+      refresh() {
+        this.scroll && this.scroll.refresh()
+      },
+
+      // 结束上拉加载更多
+      finishPullUp() {
         this.scroll.finishPullUp()
       }
     }

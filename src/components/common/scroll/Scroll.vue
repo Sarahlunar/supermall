@@ -50,7 +50,7 @@
 
     },
     methods: {
-      scrollToTop(x, y, time){
+      scrollTo(x, y, time){
         // 先判断有this.scroll再去操作
         this.scroll && this.scroll.scrollTo(x, y, time)
       },
@@ -62,6 +62,10 @@
       // 结束上拉加载更多
       finishPullUp() {
         this.scroll.finishPullUp()
+      },
+      // 获取到y
+      positionY() {
+        return this.scroll ? this.scroll.y : 0
       }
     }
   }

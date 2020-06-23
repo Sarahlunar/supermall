@@ -45,7 +45,8 @@
         currentType: "pop",
         isShowBackTop: false,
         tabOffsetTop: 0,
-        isFixedTop: false
+        isFixedTop: false,
+        saveY: 0
       }
     },
     components: {
@@ -67,8 +68,6 @@
       this.getGoods('pop')
       this.getGoods('new')
       this.getGoods('sell')
-
-
     },
     mounted() {
       // 监听item中图片加载完成
@@ -76,8 +75,14 @@
       this.$bus.$on("itemImgLoaded", () => {
         refresh()
       })
+    },
 
-
+    activated() {
+      this.$refs.scroll.scrollTo(0, this.saveY, 0)
+      this.$refs.scroll.refresh()
+    },
+    deactivated() {
+      this.saveY = this.$refs.scroll.positionY()
     },
 
     computed: {
@@ -111,7 +116,7 @@
       // 点击回顶部
       backClick() {
         // this.$refs.scroll.scroll.scrollTo(0,0,500)
-        this.$refs.scroll.scrollToTop(0, 0, 500)
+        this.$refs.scroll.scrollTo(0, 0, 500)
       },
 
       // 获取当前滑动位置
@@ -184,6 +189,7 @@
   }
   .home-nav-bar {
     background-color: var(--color-tint);
+    color: #fff;
 
     /*原生滚动,防止导航跟随滚动时使用*/
     /*position: fixed;*/
